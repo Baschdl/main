@@ -1,0 +1,52 @@
+os: linux
+
+# we use the R VM because it contains LaTeX and pandoc
+language: r
+
+# we need super user privileges, so we depend on the old travis-ci infrastructure
+sudo: required
+
+# we can install additional software
+# apt_packages:
+# we download pdf2djvu to also generate a djvu file of our LaTeX source
+#  - pdf2djvu
+
+warnings_are_errors: false
+
+before_install: cd Ausbaustufe_0_Analyse
+
+script:
+# if you have a markdown source, you can use pandoc to convert it to a LaTeX document
+#  - cat README.md | grep --invert-match "\[\!\[" > README2.md
+#  - cat README2.md | grep --invert-match "Howto Deploy LaTeX Documents" > README.md
+#  - pandoc -s --from=markdown_github --to=latex -M title="Howto Deploy LaTeX Documents" -M author="S$
+#  - make
+
+# in the next step we use pdflatex to convert .tex to .pdf
+# of course we could use pandoc for this also, but pdflatex generates nicer PDFs
+#  - pdflatex -interaction=nonstopmode HowtoDeployLatexDocs-DE.tex
+#  - pdflatex -interaction=nonstopmode HowtoDeployLatexDocs-EN.tex
+#  - pdflatex -interaction=nonstopmode README.tex
+  - pdflatex -interaction=nonstopmode Ausbaustufe_0_Analyse.tex
+
+# now we convert the pdf file to a much smaller djvu document
+#  - pdf2djvu -d 1200 -o HowtoDeployLatexDocs-DE.djvu HowtoDeployLatexDocs-DE.pdf
+#  - pdf2djvu -d 1200 -o HowtoDeployLatexDocs-EN.djvu HowtoDeployLatexDocs-EN.pdf
+after_success:
+# upload the previously generated pdf file to simonwaldherr.de (use $UPLOADSECRET as password)
+#  - wget --post-file=HowtoDeployLatexDocs-DE.pdf -q -O- "https://simonwaldherr.de/pdf/?repo=HowtoDep$
+
+deploy:
+
+# provider releases means GitHub Releases
+  provider: releases
+  api_key:
+
+# Travis CI public key encrypted GitHub oauth key for pushing to GitHub Releases
+    secure: Rv06CGAnnvKcn5QR/bYQlawFuiDHoTFlMBH668oNaZ3FACNCVw2G8x6JPb/yuKtKQdicif3IoIPgfaNUadQq6kbyO$
+
+# the list of files to upload
+  file: "Ausbaustufe_0_Analyse.pdf"
+  skip_cleanup: true
+  on:
+    repo: Baschdl/main

@@ -13,7 +13,7 @@ sudo: required
 
 warnings_are_errors: false
 
-before_install: cd Ausbaustufe_0_Analyse
+before_install: cd Ausbaustufe_0_Entwurf
 
 script:
 # if you have a markdown source, you can use pandoc to convert it to a LaTeX document
@@ -27,7 +27,7 @@ script:
 #  - pdflatex -interaction=nonstopmode HowtoDeployLatexDocs-DE.tex
 #  - pdflatex -interaction=nonstopmode HowtoDeployLatexDocs-EN.tex
 #  - pdflatex -interaction=nonstopmode README.tex
-  - pdflatex -interaction=nonstopmode Ausbaustufe_0_Analyse.tex
+  - pdflatex -interaction=nonstopmode main.tex
 
 # now we convert the pdf file to a much smaller djvu document
 #  - pdf2djvu -d 1200 -o HowtoDeployLatexDocs-DE.djvu HowtoDeployLatexDocs-DE.pdf
@@ -46,7 +46,7 @@ deploy:
     secure: Rv06CGAnnvKcn5QR/bYQlawFuiDHoTFlMBH668oNaZ3FACNCVw2G8x6JPb/yuKtKQdicif3IoIPgfaNUadQq6kbyO$
 
 # the list of files to upload
-  file: "Ausbaustufe_0_Analyse.pdf"
+  file: "Ausbaustufe_0_Entwurf.pdf"
   skip_cleanup: true
   on:
     repo: Baschdl/main

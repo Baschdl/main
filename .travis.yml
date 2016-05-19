@@ -46,7 +46,7 @@ deploy:
     secure: Rv06CGAnnvKcn5QR/bYQlawFuiDHoTFlMBH668oNaZ3FACNCVw2G8x6JPb/yuKtKQdicif3IoIPgfaNUadQq6kbyO$
 
 # the list of files to upload
-  file: "Ausbaustufe_0_Entwurf.pdf"
+  file: "main.pdf"
   skip_cleanup: true
   on:
     repo: Baschdl/main
